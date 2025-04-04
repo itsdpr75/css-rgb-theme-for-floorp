@@ -1,0 +1,161 @@
+
+/*************************************************************************************************************************************************************************************************************************************************************
+
+"userChrome.css" is a custom CSS file that can be used to specify CSS style rules for Floorp's interface (NOT internal site) using "chrome" privileges.
+For instance, if you want to hide the tab bar, you can use the following CSS rule:
+
+**************************************
+#TabsToolbar {                       *
+    display: none !important;        *
+}                                    *
+**************************************
+
+NOTE: You can use the userChrome.css file without change preferences (about:config)
+
+Quote: https://userChrome.org | https://github.com/topics/userchrome 
+
+************************************************************************************************************************************************************************************************************************************************************/
+
+@charset "UTF-8";
+@-moz-document url(chrome://browser/content/browser.xhtml) {
+/* Please write your custom CSS under this line*/
+
+    :root {
+        --toolbar-bgcolor: rgba(0, 0, 0, 0.8) !important;
+        --bg-blurr: blur(30%) !important;
+    }
+ /*   
+    /* Ejemplo de fondo semitransparente para la barra de pestañas */
+    #TabsToolbar {
+        background-color: var(--toolbar-bgcolor) !important; /* Negro semitransparente */
+        backdrop-filter: var(--bg-blurr); /* Desenfoque opcional */
+    }
+    
+    /* Fondo transparente para la barra de herramientas */
+    #nav-bar {
+        background-color: var(--toolbar-bgcolor) !important; /* Ajusta la opacidad */
+        backdrop-filter: var(--bg-blurr); /* Más desenfoque */
+    }
+    
+    /* Opcional: hacer que el menú contextual sea semitransparente */
+    menupopup {
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+    }
+    
+    /* Fondo semitransparente para la barra de búsqueda */
+    #searchbar {
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+    }
+    /*color del fondo de la cinta de pestañas*/
+    .titlebar-spacer {
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+      }
+    /* color del fondo de la barra lateral*/
+    #sidebar-select-box {
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+    }
+    #tabbrowser-tabpanels[flex] {
+        /*background: var(--toolbar-bgcolor) !important;*/
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+      }
+    #appcontent[flex] {
+        /*background: var(--toolbar-bgcolor) !important;*/
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+      }
+    .browser-sidebar2 {
+        background: var(--toolbar-bgcolor);
+        border: var(--toolbar-bgcolor) 0.1px solid;
+        border-bottom: solid 5px var(--toolbar-bgcolor);
+        backdrop-filter: var(--bg-blurr);
+      }
+    #tabbrowser-tabbox[flex], #tabbrowser-tabpanels, browser[type="content-primary"], browser[type="content"] > html {
+        background: var(--toolbar-bgcolor) !important;
+        background-color: var(--toolbar-bgcolor) !important;
+        clip-path: inset(0px 0px 0px round 15px 0) !important;
+        backdrop-filter: var(--bg-blurr);
+      }
+    #sidebar2-header {
+        background: var(--toolbar-bgcolor) !important;
+        background-color: var(--toolbar-bgcolor) !important;
+        backdrop-filter: var(--bg-blurr);
+    }
+    /* Mejora de la estela */
+    toolbarbutton {
+        position: relative; /* Necesario para que funcione el "rastro" */
+        z-index: 1;
+        overflow: visible;
+    }
+
+    toolbarbutton::after {
+        content: ''; /* Crea el rastro */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%; /* Hace que la estela sea circular */
+        background: rgba(255, 255, 255, 0.2); /* Color del rastro */
+        filter: blur(8px); /* Desenfoque de la estela */
+        z-index: -1; /* Pone el rastro detrás del icono */
+        pointer-events: none; /* No interfiere con los clics */
+        opacity: 0; /* Es invisible por defecto */
+        transition: opacity 0.3s, transform 0.3s; /* Suaviza la animación */
+    }
+
+    /* Cuando el ratón pasa sobre el icono */
+    toolbarbutton:hover::after {
+        opacity: 1; /* La estela aparece */
+        transform: scale(1.5); /* Hace que la estela sea más grande */
+    }
+
+    /* Cuando se hace clic */
+    toolbarbutton:active::after {
+        background: rgba(255, 255, 255, 0.4); /* Intensifica la estela al hacer clic */
+        transform: scale(2); /* Agranda la estela */
+        transition: none; /* Sin animación para clics rápidos */
+    }
+
+/* COLOR DEL TEXTO */
+
+    /* Cambiar color del texto en las barras */
+    #TabsToolbar, #nav-bar, #searchbar, #sidebar-header {
+        color: rgb(0, 255, 255) !important; 
+    }
+
+    /* Cambiar color del texto en los menús */
+    menupopup * {
+        color: rgb(255, 69, 0) !important; 
+    }
+
+/* COLOR DE LOS ICONOS */
+
+    /* Cambiar color de los íconos en las barras */
+    toolbarbutton {
+        color: rgb(0, 255, 255) !important; /* Cambia esto al color deseado */
+        fill: rgb(0, 255, 255) !important; /* Si son íconos SVG */
+    }
+
+    /* Cambiar color de los íconos al pasar el ratón */
+    toolbarbutton:hover {
+        color: rgb(255, 69, 0) !important; /* Ejemplo: rojo anaranjado */
+        fill: rgb(255, 69, 0) !important;
+    }
+
+    /* Cambiar color de los íconos al hacer clic */
+    toolbarbutton:active {
+        color: rgb(76, 175, 80) !important; /* Ejemplo: verde */
+        fill: rgb(76, 175, 80) !important;
+    }
+
+/*    #browser {
+        background-color: ;
+    }
+
+*/
+}

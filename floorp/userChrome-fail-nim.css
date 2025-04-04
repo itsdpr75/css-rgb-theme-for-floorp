@@ -1,0 +1,131 @@
+
+/*************************************************************************************************************************************************************************************************************************************************************
+
+"userChrome.css" is a custom CSS file that can be used to specify CSS style rules for Floorp's interface (NOT internal site) using "chrome" privileges.
+For instance, if you want to hide the tab bar, you can use the following CSS rule:
+
+**************************************
+#TabsToolbar {                       *
+    display: none !important;        *
+}                                    *
+**************************************
+
+NOTE: You can use the userChrome.css file without change preferences (about:config)
+
+Quote: https://userChrome.org | https://github.com/topics/userchrome 
+
+************************************************************************************************************************************************************************************************************************************************************/
+
+@charset "UTF-8";
+@-moz-document url(chrome://browser/content/browser.xhtml) {
+    /* Color Variables */
+    :root {
+        --primary-bg: rgba(0, 0, 0, 0.7);
+        --gradient-left: rgba(193, 155, 255, 0.616);
+        --gradient-right: rgba(127, 255, 212, 0.533);
+        --text-color: white;
+        --accent-color-1: rgb(0, 238, 255);
+        --accent-color-2: rgb(255, 103, 255);
+        --accent-color-3: rgb(0, 126, 84);
+    }
+
+    /* Global Background and Transparency */
+    #TabsToolbar, 
+    #nav-bar, 
+    #searchbar, 
+    #sidebar-header,
+    .titlebar-spacer,
+    #sidebar-select-box,
+    #tabbrowser-tabpanels[flex],
+    #appcontent[flex],
+    .browser-sidebar2 {
+        background-color: var(--primary-bg) !important;
+        backdrop-filter: blur(30%);
+    }
+
+    /* Gradient Border Effect */
+    #TabsToolbar::before,
+    #nav-bar::before,
+    .menu::before {
+        content: '';
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+        background: linear-gradient(to right, var(--gradient-left), var(--gradient-right));
+        border-radius: 16px;
+        z-index: -1;
+    }
+
+    /* Text and Icon Colors */
+    #TabsToolbar, 
+    #nav-bar, 
+    #searchbar, 
+    #sidebar-header {
+        color: var(--text-color) !important;
+    }
+
+    /* Animated Toolbar Buttons */
+    toolbarbutton {
+        position: relative;
+        z-index: 1;
+        overflow: visible;
+        color: var(--accent-color-1) !important;
+        fill: var(--accent-color-1) !important;
+        transition: color 0.3s, fill 0.3s;
+    }
+
+    /* Button Hover and Active States with Gradient Animation */
+    toolbarbutton:hover {
+        color: var(--accent-color-2) !important;
+        fill: var(--accent-color-2) !important;
+    }
+
+    toolbarbutton:active {
+        color: var(--accent-color-3) !important;
+        fill: var(--accent-color-3) !important;
+    }
+
+    /* Button Hover Effect with Glowing Trail */
+    toolbarbutton::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: linear-gradient(90deg, var(--accent-color-1), var(--accent-color-2), var(--accent-color-3), var(--accent-color-1));
+        background-size: 200% 100%;
+        filter: blur(8px);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        animation: moveGradient 5s linear infinite;
+    }
+
+    toolbarbutton:hover::after {
+        opacity: 0.5;
+        transform: scale(1.5);
+    }
+
+    toolbarbutton:active::after {
+        opacity: 0.7;
+        transform: scale(2);
+        transition: none;
+    }
+
+    /* Gradient Animation Keyframes */
+    @keyframes moveGradient {
+        0% { background-position: 100% 0%; }
+        100% { background-position: -100% 0%; }
+    }
+
+    /* Menu Popup Styling */
+    menupopup {
+        background-color: var(--primary-bg) !important;
+        backdrop-filter: blur(30%);
+        color: var(--accent-color-2) !important;
+    }
+}
